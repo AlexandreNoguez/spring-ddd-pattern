@@ -1,0 +1,24 @@
+spring:
+  application:
+    name: bank-ddd
+
+  datasource:
+    # IMPORTANTE: "db" é o nome do serviço do Postgres no docker-compose (vamos usar isso já já)
+    url: jdbc:postgresql://db:5432/dio_bank
+    username: dio
+    password: dio
+
+  jpa:
+    hibernate:
+      ddl-auto: update # só para desenvolvimento/demo (cria/atualiza as tabelas)
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+server:
+  port: 8080
+
+logging:
+  level:
+    org.hibernate.SQL: INFO

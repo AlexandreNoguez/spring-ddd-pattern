@@ -1,0 +1,32 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: dio_bank
+      POSTGRES_USER: dio
+      POSTGRES_PASSWORD: dio
+    ports:
+      - "5432:5432"
+    volumes:
+      - dbdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U dio -d dio_bank"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  app:
+    build: .
+    depends_on:
+      db:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    # Estas vars repetem o que já está no application.yml; mantemos por clareza/override
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://db:5432/dio_bank
+      SPRING_DATASOURCE_USERNAME: dio
+      SPRING_DATASOURCE_PASSWORD: dio
+
+volumes:
+  dbdata:
