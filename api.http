@@ -1,0 +1,61 @@
+# variaveis para testes dos endpoints da API bancária
+@baseUrl = http://localhost:8080
+@accountId = a50c56bb-5d43-4ed0-85ae-8ff1c4a3c6ec
+@accountId2 = 4ca9fcd3-9189-4a63-9a8d-571e24c0f45f
+@cpf = 12345678900
+@cpf2 = 12343628902
+@pixKey = alex@pix
+@pixKey2 = lara@pix
+
+
+### 1) Criar Conta
+POST {{baseUrl}}/api/accounts
+Content-Type: application/json
+
+{
+  "type": "CHECKING",
+  "holderName": "Lara",
+  "cpf": "{{cpf}}",
+  "pixKey": "lara@pix"
+}
+
+### 2) Depositar
+POST {{baseUrl}}/api/accounts/deposit
+Content-Type: application/json
+
+{
+  "accountId": "{{accountId2}}",
+  "amount": 150.00
+}
+
+### 3) Sacar
+POST {{baseUrl}}/api/accounts/withdraw
+Content-Type: application/json
+
+{
+  "accountId": "{{accountId2}}",
+  "amount": 50.00
+}
+
+### 4) Transferência via PIX
+POST {{baseUrl}}/api/accounts/pix
+Content-Type: application/json
+
+{
+  "fromPixKey": "{{pixKey}}",
+  "toPixKey": "{{pixKey2}}",
+  "amount": 75.00
+}
+
+### 5) Criar Investimento
+POST {{baseUrl}}/api/investments
+Content-Type: application/json
+
+{
+  "accountId": "{{accountId}}",
+  "type": "CDB",
+  "amount": 200.00
+}
+
+### 6) Listar Transações da Conta
+GET {{baseUrl}}/api/accounts/{{accountId}}/transactions
