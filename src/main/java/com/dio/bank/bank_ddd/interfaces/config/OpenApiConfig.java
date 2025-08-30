@@ -3,8 +3,6 @@ package com.dio.bank.bank_ddd.interfaces.config;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.License;
 import io.swagger.v3.oas.models.servers.Server;
-import io.swagger.v3.oas.models.Components;
-import io.swagger.v3.oas.models.media.Schema;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -17,14 +15,6 @@ public class OpenApiConfig {
     public OpenAPI api() {
         return new OpenAPI()
             .servers(List.of(new Server().url("http://localhost:8080")))
-            .components(new Components()
-                .addSchemas("ErrorResponse",
-                    new Schema<>()
-                        .addProperties("statusCode", new Schema<>().type("integer").format("int32"))
-                        .addProperties("error", new Schema<>().type("string"))
-                        .addProperties("message", new Schema<>().type("string"))
-                )
-            )
             .info(new io.swagger.v3.oas.models.info.Info()
                 .title("DIO Bank DDD API")
                 .version("0.0.1")
